@@ -1,6 +1,7 @@
 {
   "name": "my-website",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +14,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/nnguyen402/my-website/issues"
   },
@@ -29,6 +29,7 @@
     "@types/react": "^19.2.14",
     "@types/ssh2": "^1.15.5",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.2"
   }
 }
