@@ -4,7 +4,8 @@ import { readFileSync } from "fs";
 import { render } from "ink";
 import React from "react";
 import dotenv from "dotenv";
-import { Portfolio } from "./index.js"; // why is this the way it works
+import { Portfolio } from "./main.tsx";
+import { Writable } from "node:stream";
 
 dotenv.config();
 
@@ -18,18 +19,33 @@ const server = new Server({ hostKeys: [hostKey] }, (client) => {
   client.on("ready", () => {
     client.on("session", (accept, reject) => {
       const session = accept();
-
+      let terminalCols = 80;
+      let terminalRows = 24;
       // handle terminal window req
       session.on("pty", (accept, reject, info) => {
+        terminalCols = info.cols;
+        terminalRows = info.rows;
         accept();
       });
 
       session.on("shell", (accept, reject) => {
         const stream = accept();
-
+        (stream as any).isTTY = true;
+        (stream as any).setRawMode = () => stream;
+        (stream as any).ref = () => stream;
+        (stream as any).unref = () => stream;
+        const safeStdout = new Writable({
+          write(chunk, encoding, callback) {
+            const fixedText = chunk.toString().replace(/\n/g, "\r\n");
+            stream.write(fixedText);
+            callback();
+          },
+        });
+        (safeStdout as any).columns = terminalCols;
+        (safeStdout as any).rows = terminalRows;
         // render in terminal
         const { unmount } = render(React.createElement(Portfolio), {
-          stdout: stream as unknown as NodeJS.WriteStream,
+          stdout: safeStdout as unknown as NodeJS.WriteStream,
           stdin: stream as unknown as NodeJS.ReadStream,
           patchConsole: false,
         });
