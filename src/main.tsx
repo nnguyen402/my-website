@@ -72,7 +72,7 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
     "Portfolio Architecture:",
     "  • UI: React, Ink, TypeScript",
     "  • Server: Node.js & ssh2",
-    " • Infra: Docker & Fly.io",
+    "  • Infra: Docker & Fly.io",
   ];
   const rowCount = Math.max(pfpLines.length, bioLines.length);
 
@@ -81,28 +81,39 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
       {Array.from({ length: rowCount }).map((_, i) => {
         const pfpLine = pfpLines[i] ?? "";
         const bioLine = bioLines[i] ?? "";
-        const isTitle = i === 0;
-        const isSubtitle = i === 1;
-        const isHobby = i >= 19 && i < 25;
-        const isArc = i >= 25;
+        // const isTitle = i === 0 || i == 18 || i == 25;
+        // const isSubtitle = i === 1;
+        // const isHobby = i >= 18 && i < 25;
+        // const isArc = i >= 25;
+        const isTitle = i === 0 || i === 18 || i === 25;
+        const isTitle1 = i === 0; // bio
+        const isTitle2 = i === 18; // hobby
+        const isTitle3 = i === 25; // architecture
+        const isContent1 = i > 0 && i < 18;
+        const isContent2 = i > 18 && i < 25;
+        const isContent3 = i > 25;
 
         return (
           <Box key={i} flexDirection="row">
             <Text color="#FF8DA1">{pfpLine.padEnd(pfpWidth)}</Text>
             <Text
               color={
-                isTitle
+                isTitle1
                   ? "#47D69D"
-                  : isSubtitle
-                    ? "#47D69D"
-                    : isHobby
-                      ? "#CF8DA1"
-                      : isArc // : "#38AB7D"
-                        ? "#808080"
-                        : "#38AB7D"
+                  : isTitle2
+                    ? "#CF8DA1"
+                    : isTitle3
+                      ? "#808080"
+                      : isContent1
+                        ? "#38AB7D"
+                        : isContent2
+                          ? "#CF8DA1"
+                          : isContent3
+                            ? "#7D7F7C"
+                            : "#47D69D"
               }
               bold={isTitle}
-              dimColor={isArc}
+              dimColor={isContent3}
             >
               {"  " + bioLine}
             </Text>
@@ -110,11 +121,21 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
         );
       })}
 
-      <Box paddingLeft={5}>
-        <Text color="gray">Lifetime Visitor Count: {visitCount}</Text>
+      <Box
+        alignItems="center"
+        justifyContent="space-between"
+        marginRight={25}
+        marginTop={1}
+      >
+        <Text color="gray" dimColor>
+          Lifetime Visitor Count: {visitCount}
+        </Text>
+        <Text color="#38AB7D" dimColor>
+          Use [Arrow keys] and [Enter] to select
+        </Text>
       </Box>
       <Box
-        marginTop={2}
+        marginTop={1}
         gap={3}
         justifyContent="space-evenly"
         paddingRight={50}
