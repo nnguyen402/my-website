@@ -44,22 +44,20 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
     "https://open.spotify.com/user/g7da8ica1rxvv4xxk6n47c2eu?si=49673440fda8475f";
   const spotifyClick = `\x1b]8;;${spotifyUrl}\x07Music\x1b]8;;\x07`;
   const bioLines = [
-    "",
     "Nathan Nguyen",
     "Georgia Tech — CS, Info Internetworks & Media",
     "",
-    "Hello! My name is Nathan Nguyen and I am a Georgia Tech",
-    "student studying Computer Science with a focus in",
-    "Information Internetworks and Media. I am extremely",
-    "interested in the depths of CS and how I can use it to",
-    "make real world impact. Besides that, I want to figure",
-    "out why things work rather than making it work while",
-    "also diving into designing systems, seeing how people",
-    "interact with technology, or really anything new as I",
-    "am always looking to learn more.",
+    "Hello, my name is Nathan Nguyen and welcome to my TUI",
+    "portfolio! A little about me, I am extremely interested",
+    "in the limits of software and how I can use it to make",
+    "real world impact. Besides that, I like to figure out why",
+    "things work rather than making it work while also diving",
+    "into designing systems, seeing how people interact with",
+    "technology, or really anything new as I am always looking",
+    "to learn more.",
     "",
-    "Apart from that, I am a Software Development Program",
-    "Coordinator for Whiz Learning Kids where I teach",
+    "Apart from that, I am currently Software Development",
+    "Program Coordinator for Whiz Learning Kids where I teach",
     "several curricula while also maintaining and modifying",
     "it to keep it enticing and modern. I am also currently",
     "teaching Python 1-on-1 with high schoolers.",
@@ -67,9 +65,14 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
     "Hobbies:",
     "  • Climbing",
     "  • Sewing",
-    "  • Gaming (Fallout series, Counter-Strike, Minecraft, and more)",
+    "  • Gaming (Fallout, Counter-Strike, Minecraft, and more)",
     "  • " + spotifyClick + " (ctrl+click me!)",
     "  • Fashion",
+    "",
+    "Portfolio Architecture:",
+    "  • UI: React, Ink, TypeScript",
+    "  • Server: Node.js & ssh2",
+    " • Infra: Docker & Fly.io",
   ];
   const rowCount = Math.max(pfpLines.length, bioLines.length);
 
@@ -78,9 +81,10 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
       {Array.from({ length: rowCount }).map((_, i) => {
         const pfpLine = pfpLines[i] ?? "";
         const bioLine = bioLines[i] ?? "";
-        const isTitle = i === 1;
-        const isSubtitle = i === 2;
-        const isHobby = i >= 21;
+        const isTitle = i === 0;
+        const isSubtitle = i === 1;
+        const isHobby = i >= 19 && i < 25;
+        const isArc = i >= 25;
 
         return (
           <Box key={i} flexDirection="row">
@@ -93,15 +97,19 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
                     ? "#47D69D"
                     : isHobby
                       ? "#CF8DA1"
-                      : "#38AB7D"
+                      : isArc // : "#38AB7D"
+                        ? "#808080"
+                        : "#38AB7D"
               }
               bold={isTitle}
+              dimColor={isArc}
             >
               {"  " + bioLine}
             </Text>
           </Box>
         );
       })}
+
       <Box paddingLeft={5}>
         <Text color="gray">Lifetime Visitor Count: {visitCount}</Text>
       </Box>
@@ -109,7 +117,7 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
         marginTop={2}
         gap={3}
         justifyContent="space-evenly"
-        paddingRight={40}
+        paddingRight={50}
       >
         {links.map((link, i) => (
           <Box key={i}>
