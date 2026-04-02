@@ -46,7 +46,6 @@ const server = new Server(
       return;
     }
     activeConnections++;
-    lifetimeConCount++;
     writeFile(statsFile, lifetimeConCount.toString(), (err) => {
       if (err) console.error("Failed to save visit count:", err);
     });
@@ -67,6 +66,7 @@ const server = new Server(
           terminalCols = info.cols;
           terminalRows = info.rows;
           accept();
+          lifetimeConCount++;
         });
 
         session.on("shell", (accept, reject) => {
