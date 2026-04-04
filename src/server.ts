@@ -178,3 +178,6 @@ wss.on("connection", (ws) => {
     unmount();
   });
 });
+httpServer.listen(8080, "0.0.0.0", () => {
+  console.log("HTTP/WebSocket running on port 8080");
+});
