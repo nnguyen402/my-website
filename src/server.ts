@@ -160,6 +160,9 @@ wss.on("connection", (ws) => {
   (wsStream as any).columns = 80;
   (wsStream as any).rows = 24;
 
+  (wsStream as any).ref = () => wsStream;
+  (wsStream as any).unref = () => wsStream;
+
   const { unmount } = render(
     React.createElement(Portfolio, { visitCount: lifetimeConCount }),
     { stdout: wsStream as any, stdin: wsStream as any, patchConsole: false },
