@@ -86,13 +86,13 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
         // const isSubtitle = i === 1;
         // const isHobby = i >= 18 && i < 25;
         // const isArc = i >= 25;
-        const isTitle = i === 0 || i === 18 || i === 25;
+        const isTitle = i === 0 || i === 12 || i === 19;
         const isTitle1 = i === 0; // bio
-        const isTitle2 = i === 18; // hobby
-        const isTitle3 = i === 25; // architecture
-        const isContent1 = i > 0 && i < 18;
-        const isContent2 = i > 18 && i < 25;
-        const isContent3 = i > 25;
+        const isTitle2 = i === 12; // hobby
+        const isTitle3 = i === 19; // architecture
+        const isContent1 = i > 0 && i < 12;
+        const isContent2 = i > 12 && i < 19;
+        const isContent3 = i > 19;
 
         return (
           <Box key={i} flexDirection="row">
