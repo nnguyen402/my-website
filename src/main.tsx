@@ -42,10 +42,15 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
 
   const spotifyUrl =
     "https://open.spotify.com/user/g7da8ica1rxvv4xxk6n47c2eu?si=49673440fda8475f";
+  const infoNetUrl =
+    "https://www.cc.gatech.edu/academics/threads/information-internetworks";
+  const mediaUrl = "https://www.cc.gatech.edu/academics/threads/media";
   const spotifyClick = `\x1b]8;;${spotifyUrl}\x07Music\x1b]8;;\x07`;
+  const infoNetClick = `\x1b]8;;${infoNetUrl}\x07Info Internetworks\x1b]8;;\x07`;
+  const mediaClick = `\x1b]8;;${mediaUrl}\x07Media\x1b]8;;\x07`;
   const bioLines = [
     "Nathan Nguyen",
-    "Georgia Tech — CS, Info Internetworks & Media",
+    "Georgia Tech — CS, " + infoNetClick + " & " + mediaClick,
     "",
     "Hello, my name is Nathan Nguyen and welcome to my TUI",
     "portfolio! A little about me, I am extremely interested",
@@ -55,14 +60,8 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
     "into designing systems, seeing how people interact with",
     "technology, or really anything new as I am always looking",
     "to learn more.",
-    // "",
-    // "Apart from that, I am currently Software Development",
-    // "Program Coordinator for Whiz Learning Kids where I teach",
-    // "several curricula while also maintaining and modifying",
-    // "it to keep it enticing and modern. I am also currently",
-    // "teaching Python 1-on-1 with high schoolers.",
     "",
-    "Hobbies:",
+    "Hobbies:", // 12
     "  • Climbing",
     "  • Photography",
     "  • Sewing",
@@ -82,10 +81,6 @@ export const Portfolio = ({ visitCount = 1 }: { visitCount?: number }) => {
       {Array.from({ length: rowCount }).map((_, i) => {
         const pfpLine = pfpLines[i] ?? "";
         const bioLine = bioLines[i] ?? "";
-        // const isTitle = i === 0 || i == 18 || i == 25;
-        // const isSubtitle = i === 1;
-        // const isHobby = i >= 18 && i < 25;
-        // const isArc = i >= 25;
         const isTitle = i === 0 || i === 12 || i === 19;
         const isTitle1 = i === 0; // bio
         const isTitle2 = i === 12; // hobby
